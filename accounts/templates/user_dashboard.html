@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <title>Личный кабинет</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --space-unit: 0.25rem;
+            --space-xs: calc(2 * var(--space-unit));
+            --space-sm: calc(4 * var(--space-unit));
+            --space-md: calc(8 * var(--space-unit));
+            --space-lg: calc(12 * var(--space-unit));
+            --space-xl: calc(16 * var(--space-unit)); 
+            
+            --bg-color: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --text-color: #333;
+            --text-secondary: #4a5568;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --input-bg: #ffffff;
+            --input-border: #e2e8f0;
+            --section-bg: #ffffff;
+            --hover-bg: #f7fafc;
+            --divider-color: rgba(59, 130, 246, 0.3);
+            --neumorphic-bg: #f0f4f8;
+            --neumorphic-shadow: 
+                8px 8px 16px rgba(174, 174, 192, 0.4),
+                -8px -8px 16px rgba(255, 255, 255, 0.8);
+            --primary-gradient: linear-gradient(45deg, #3b82f6, #6366f1);
+            --secondary-gradient: linear-gradient(45deg, #10b981, #059669);
+        }
+
+        .dark-mode {
+            --bg-color: linear-gradient(135deg, #1a1b1e 0%, #2d2d35 100%);
+            --card-bg: rgba(30, 30, 35, 0.95);
+            --text-color: #e2e8f0;
+            --text-secondary: #cbd5e0;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --input-bg: #2d3748;
+            --input-border: #4a5568;
+            --section-bg: rgba(30, 30, 35, 0.8);
+            --hover-bg: rgba(45, 55, 72, 0.5);
+            --divider-color: rgba(59, 130, 246, 0.5);
+            --neumorphic-bg: #2d2d35;
+            --neumorphic-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.4),
+                -8px -8px 16px rgba(60, 60, 70, 0.2);
+            --primary-gradient: linear-gradient(45deg, #3b82f6, #6366f1);
+            --secondary-gradient: linear-gradient(45deg, #10b981, #059669);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        h2, h3 {
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        h2 {
+            letter-spacing: -0.025em;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            letter-spacing: -0.015em;
+            margin-bottom: 1.25rem;
+        }
+
+        p, td, th {
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: color 0.3s ease;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            box-shadow: var(--card-shadow);
+            padding: var(--space-lg);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .neumorphic-card {
+            background: var(--neumorphic-bg);
+            border-radius: 16px;
+            box-shadow: var(--neumorphic-shadow);
+            padding: var(--space-md);
+            transition: all 0.3s ease;
+        }
+
+        .neumorphic-card:hover {
+            box-shadow: var(--neumorphic-shadow);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+            letter-spacing: 0.025em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .btn-primary:hover::after {
+            left: 100%;
+            transition: all 0.5s ease;
+        }
+
+        .btn-secondary {
+            background: var(--secondary-gradient);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px -5px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .btn-secondary:hover::after {
+            left: 100%;
+            transition: all 0.5s ease;
+        }
+
+        .input-field {
+            transition: all 0.3s ease;
+            border: 2px solid var(--input-border);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            border-radius: 0.5rem;
+        }
+
+        .input-field:focus {
+            transform: scale(1.01);
+            border-color: #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+            outline: none;
+        }
+
+        .balance-card {
+            background: var(--primary-gradient);
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: var(--space-lg);
+            border-radius: 1rem;
+        }
+
+        .balance-card p {
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .balance-card p.text-lg {
+            font-weight: 500;
+            letter-spacing: 0.025em;
+        }
+
+        #balance {
+            letter-spacing: 0.05em;
+        }
+
+        .balance-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                rgba(255, 255, 255, 0.2),
+                transparent,
+                rgba(255, 255, 255, 0.1)
+            );
+            transform: rotate(30deg);
+            animation: shimmer 3s infinite;
+        }
+
+        .progress-bar {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shine 2s infinite;
+        }
+
+        .table-header {
+            background: var(--primary-gradient);
+        }
+
+        .table-row {
+            border-bottom: 1px solid var(--input-border);
+            transition: background-color 0.3s ease;
+        }
+
+        .table-row:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .service-icon {
+            font-size: 1.2em;
+            margin-right: 0.5em;
+        }
+
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip:hover::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            border-radius: 6px;
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 10;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--divider-color), transparent);
+            margin: var(--space-lg) 0;
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            width: 60px;
+            height: 30px;
+            background: #f0f4f8;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+            transition: background 0.3s ease;
+        }
+
+        .dark-mode .theme-switch {
+            background: #4a5568;
+        }
+
+        .theme-switch::after {
+            content: '☀️';
+            position: absolute;
+            top: 3px;
+            left: 5px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .dark-mode .theme-switch::after {
+            content: '🌙';
+            left: 31px;
+            background: #2d3748;
+        }
+
+        .bg-section {
+            background-color: var(--section-bg);
+            transition: background-color 0.3s ease;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-inner {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            color: #3b82f6;
+        }
+        
+        .dark-mode .logo-inner {
+            background: #2d3748;
+            color: #60a5fa;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        #error-message {
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        .new-order {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @media (max-width: 640px) {
+            :root {
+                --space-unit: 0.2rem;
+            }
+            
+            .glass-card {
+                padding: var(--space-md);
+            }
+            
+            .balance-card, .bg-section {
+                padding: var(--space-sm);
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            h3 {
+                font-size: 1.25rem;
+            }
+
+            .btn-primary, .btn-secondary {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <div id="particles-js"></div>
+
+    <div class="theme-switch" id="themeSwitch" role="button" aria-label="Переключить тему"></div>
+
+    <div class="max-w-4xl mx-auto animate__animated animate__fadeIn">
+        <div class="glass-card rounded-2xl shadow-xl">
+            <div class="logo animate__animated animate__zoomIn animate__delay-1s">
+                <div class="logo-inner">Q</div>
+            </div>
+
+            <h2 class="text-4xl font-bold mb-8 text-center animate__animated animate__fadeInUp animate__delay-1s">
+                <i class="fas fa-user-circle mr-3"></i>Личный кабинет
+            </h2>
+
+            <div class="balance-card p-6 rounded-xl text-white text-center animate__animated animate__fadeInUp animate__delay-1s">
+                <i class="fas fa-wallet text-4xl mb-3 opacity-80"></i>
+                <p class="text-lg opacity-90">Ваш баланс</p>
+                <p id="balance" class="text-4xl font-bold mt-2">{{ user.balance }}</p>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="neumorphic-card mb-10 animate__animated animate__fadeInUp animate__delay-2s">
+                <h3 class="text-2xl font-semibold mb-6">
+                    <i class="fas fa-plus-circle mr-2"></i>Создать заказ
+                </h3>
+                <form id="boostForm" class="space-y-4">
+                    {% csrf_token %}
+                    <div class="form-section">
+                        <div class="relative">
+                            <select name="service" id="service" class="input-field w-full p-4 pl-10 rounded-lg" onchange="updatePrice()" aria-label="Выберите сервис">
+                                <option value="tiktok"><i class="fab fa-tiktok"></i>TikTok</option>
+                                <option value="instagram"><i class="fab fa-instagram"></i>Instagram</option>
+                                <option value="youtube"><i class="fab fa-youtube"></i>YouTube</option>
+                            </select>
+                            <i class="fas fa-globe absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="relative">
+                            <input type="text" name="link" id="link" placeholder="Ссылка на контент" 
+                                   class="input-field w-full p-4 pl-10 rounded-lg" required
+                                   aria-label="Ссылка на контент">
+                            <i class="fas fa-link absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="relative">
+                            <select name="boost_type" id="boost_type" class="input-field w-full p-4 pl-10 rounded-lg" onchange="updatePrice()" aria-label="Тип накрутки">
+                                <option value="views">Просмотры</option>
+                                <option value="followers">Подписчики</option>
+                                <option value="likes">Лайки</option>
+                            </select>
+                            <i class="fas fa-chart-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="relative">
+                            <input type="number" name="amount" id="amount" placeholder="Количество" 
+                                   class="input-field w-full p-4 pl-10 rounded-lg" required oninput="updatePrice()"
+                                   aria-label="Количество">
+                            <i class="fas fa-hashtag absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-section rounded-lg p-4 mt-4">
+                        <p>
+                            <i class="fas fa-tags mr-2"></i>
+                            Стоимость: <span id="order_price" class="font-bold text-indigo-600">0</span> баллов
+                        </p>
+                    </div>
+
+                    <p id="error-message" class="text-red-500 text-sm mt-2 hidden">
+                        <i class="fas fa-exclamation-circle mr-2"></i>Недостаточно баллов!
+                    </p>
+
+                    <div class="flex gap-4 mt-6">
+                        <button type="submit" class="btn-primary flex-1 py-4 rounded-lg text-white font-semibold text-lg">
+                            <i class="fas fa-rocket mr-2"></i>Начать накрутку
+                        </button>
+                        <button type="button" class="btn-secondary py-4 px-6 rounded-lg text-white font-semibold" id="saveTemplate" aria-label="Сохранить шаблон">
+                            <i class="fas fa-save"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="neumorphic-card overflow-hidden animate__animated animate__fadeInUp animate__delay-2s">
+                <h3 class="text-2xl font-semibold mb-6">
+                    <i class="fas fa-history mr-2"></i>История заказов
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full" aria-label="История заказов">
+                        <thead class="table-header text-white">
+                            <tr>
+                                <th class="p-4 text-left">Сервис</th>
+                                <th class="p-4 text-left">Ссылка</th>
+                                <th class="p-4 text-left">Тип</th>
+                                <th class="p-4 text-left">Кол-во</th>
+                                <th class="p-4 text-left">Прогресс</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTable">
+                            {% for order in orders %}
+                            <tr class="table-row">
+                                <td class="p-4">
+                                    <i class="fab fa-{{ order.service|lower }} mr-2"></i>
+                                    {{ order.service|title }}
+                                </td>
+                                <td class="p-4">
+                                    <a href="{{ order.link }}" class="text-indigo-600 hover:text-indigo-800 underline" target="_blank" rel="noopener noreferrer">
+                                        <i class="fas fa-external-link-alt mr-1"></i>Перейти
+                                    </a>
+                                </td>
+                                <td class="p-4">{{ order.boost_type|title }}</td>
+                                <td class="p-4">{{ order.amount }}</td>
+                                <td class="p-4">
+                                    <div class="w-full bg-gray-200 rounded-full">
+                                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 text-xs font-medium text-white text-center p-1.5 leading-none rounded-full progress-bar tooltip"
+                                             data-tooltip="Нажмите для изменения"
+                                             style="width: {{ order.progress }}%" 
+                                             onclick="editProgress(this)"
+                                             role="progressbar" 
+                                             aria-valuenow="{{ order.progress }}" 
+                                             aria-valuemin="0" 
+                                             aria-valuemax="100">
+                                            {{ order.progress }}%
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <p class="text-center text-xs text-gray-500 mt-6 animate__animated animate__fadeIn animate__delay-3s">
+                © 2025 QIYANAS BOOST - lolz.live/kqlol/
+            </p>
+        </div>
+        
+        <div id="notification" class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 flex items-center" style="display: none;">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span id="notification-message">Операция выполнена успешно!</span>
+        </div>
+    </div>
+
+    <script>
+        const prices = {
+            tiktok: { views: 0.1, likes: 0.15, followers: 0.2 },
+            instagram: { views: 0.13, likes: 0.12, followers: 0.25 },
+            youtube: { views: 0.14, likes: 0.18, followers: 0.3 }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#3b82f6"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#3b82f6",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+            
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        });
+
+        document.getElementById('themeSwitch').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                showNotification("Темная тема включена");
+            } else {
+                localStorage.setItem('theme', 'light');
+                showNotification("Светлая тема включена");
+            }
+            
+            if (document.body.classList.contains('dark-mode')) {
+                pJSDom[0].pJS.particles.color.value = "#60a5fa";
+                pJSDom[0].pJS.particles.line_linked.color = "#60a5fa";
+            } else {
+                pJSDom[0].pJS.particles.color.value = "#3b82f6";
+                pJSDom[0].pJS.particles.line_linked.color = "#3b82f6";
+            }
+            pJSDom[0].pJS.fn.particlesRefresh();
+        });
+
+        function updatePrice() {
+            const service = document.getElementById("service").value;
+            const boostType = document.getElementById("boost_type").value;
+            const amount = parseInt(document.getElementById("amount").value) || 0;
+            const pricePer1000 = prices[service][boostType] * 1000;
+            document.getElementById("order_price").innerText = Math.ceil((pricePer1000 * amount) / 1000);
+        }
+
+        function editProgress(element) {
+            const currentProgress = parseInt(element.innerText.replace('%', '')) || 0;
+            const newProgress = prompt("Введите новый процент прогресса:", currentProgress);
+            if (newProgress !== null) {
+                const validProgress = Math.min(100, Math.max(0, parseInt(newProgress) || 0));
+                element.style.width = validProgress + "%";
+                element.innerText = validProgress + "%";
+                element.setAttribute('aria-valuenow', validProgress);
+                
+                showNotification("Прогресс успешно обновлен!");
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            document.getElementById('notification-message').textContent = message;
+            notification.style.display = 'flex';
+            
+            setTimeout(() => {
+                notification.classList.remove('translate-y-20', 'opacity-0');
+            }, 10);
+            
+            setTimeout(() => {
+                notification.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 300);
+            }, 3000);
+        }
+
+        document.getElementById("boostForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const balanceElem = document.getElementById("balance");
+            let balance = parseInt(balanceElem.innerText);
+            const orderPrice = parseInt(document.getElementById("order_price").innerText);
+            const errorMessage = document.getElementById("error-message");
+            
+            if (orderPrice > balance) {
+                errorMessage.classList.remove("hidden");
+                return;
+            }
+            errorMessage.classList.add("hidden");
+            balance -= orderPrice;
+            balanceElem.innerText = balance;
+            
+            const service = document.getElementById("service").value;
+            const link = document.getElementById("link").value;
+            const boostType = document.getElementById("boost_type").value;
+            const amount = document.getElementById("amount").value;
+            
+            const newRow = `<tr class="table-row new-order animate__animated animate__fadeIn">
+                <td class="p-4">
+                    <i class="fab fa-${service.toLowerCase()} mr-2"></i>
+                    ${service}
+                </td>
+                <td class="p-4">
+                    <a href="${link}" class="text-indigo-600 hover:text-indigo-800 underline" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt mr-1"></i>Перейти
+                    </a>
+                </td>
+                <td class="p-4">${boostType}</td>
+                <td class="p-4">${amount}</td>
+                <td class="p-4">
+                    <div class="w-full bg-gray-200 rounded-full">
+                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 text-xs font-medium text-white text-center p-1.5 leading-none rounded-full progress-bar tooltip"
+                            data-tooltip="Нажмите для изменения"
+                            style="width: 0%" 
+                            onclick="editProgress(this)"
+                            role="progressbar" 
+                            aria-valuenow="0" 
+                            aria-valuemin="0" 
+                            aria-valuemax="100">
+                            0%
+                        </div>
+                    </div>
+                </td>
+            </tr>`;
+            document.getElementById("ordersTable").innerHTML = newRow + document.getElementById("ordersTable").innerHTML;
+            
+            showNotification("Заказ успешно создан!");
+            
+            document.getElementById("link").value = "";
+            document.getElementById("amount").value = "";
+            updatePrice();
+        });
+
+        document.getElementById('saveTemplate').addEventListener('click', function() {
+            const service = document.getElementById("service").value;
+            const link = document.getElementById("link").value;
+            const boostType = document.getElementById("boost_type").value;
+            const amount = document.getElementById("amount").value;
+            
+            if (!link || !amount) {
+                showNotification("Заполните все поля для сохранения шаблона", "error");
+                return;
+            }
+            
+            const template = {
+                service,
+                link,
+                boostType,
+                amount
+            };
+            
+            localStorage.setItem('orderTemplate', JSON.stringify(template));
+            showNotification("Шаблон успешно сохранен!");
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTemplate = localStorage.getItem('orderTemplate');
+            if (savedTemplate) {
+                try {
+                    const template = JSON.parse(savedTemplate);
+                    document.getElementById("service").value = template.service;
+                    document.getElementById("link").value = template.link;
+                    document.getElementById("boost_type").value = template.boostType;
+                    document.getElementById("amount").value = template.amount;
+                    updatePrice();
+                } catch (e) {
+                    console.error("Ошибка при загрузке шаблона:", e);
+                }
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__fadeInUp');
+                        entry.target.style.opacity = 1;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('.neumorphic-card').forEach(card => {
+                if (!card.classList.contains('animate__animated')) {
+                    card.style.opacity = 0;
+                    observer.observe(card);
+                }
+            });
+        });
+        
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const balanceElement = document.getElementById('balance');
+            const finalBalance = parseInt(balanceElement.innerText);
+            balanceElement.innerText = '0';
+            setTimeout(() => {
+                animateValue(balanceElement, 0, finalBalance, 1500);
+            }, 1000);
+        });
+        
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableHeaders = document.querySelectorAll('th');
+            tableHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const table = this.closest('table');
+                    const index = Array.from(this.parentNode.children).indexOf(this);
+                    const rows = Array.from(table.querySelectorAll('tbody tr'));
+                    
+                    const currentDirection = this.getAttribute('data-sort') === 'asc' ? 'desc' : 'asc';
+                    
+                    tableHeaders.forEach(h => h.removeAttribute('data-sort'));
+                    
+                    this.setAttribute('data-sort', currentDirection);
+                    
+                    rows.sort((a, b) => {
+                        const aValue = a.children[index].textContent.trim();
+                        const bValue = b.children[index].textContent.trim();
+                        
+                        if (!isNaN(aValue) && !isNaN(bValue)) {
+                            return currentDirection === 'asc' 
+                                ? parseInt(aValue) - parseInt(bValue)
+                                : parseInt(bValue) - parseInt(aValue);
+                        }
+                        
+                        return currentDirection === 'asc'
+                            ? aValue.localeCompare(bValue)
+                            : bValue.localeCompare(aValue);
+                    });
+                    
+                    const tbody = table.querySelector('tbody');
+                    rows.forEach(row => tbody.appendChild(row));
+                    
+                    showNotification(`Таблица отсортирована по ${this.textContent.trim()}`);
+                });
+                
+
+                header.style.cursor = 'pointer';
+                
+
+                header.setAttribute('data-tooltip', 'Нажмите для сортировки');
+                header.classList.add('tooltip');
+            });
+        });
+        
+        function exportTableToCSV() {
+            const table = document.querySelector('table');
+            let csv = [];
+            
+            const headers = [];
+            const headerCells = table.querySelectorAll('th');
+            headerCells.forEach(cell => {
+                headers.push(cell.textContent.trim());
+            });
+            csv.push(headers.join(','));
+            
+            const rows = table.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const rowData = [];
+                const cells = row.querySelectorAll('td');
+                cells.forEach((cell, index) => {
+                    if (index === 1) {
+                        rowData.push("Перейти");
+                    } 
+
+                    else if (index === 4) {
+                        const progressBar = cell.querySelector('.progress-bar');
+                        rowData.push(progressBar.textContent.trim());
+                    } 
+
+                    else {
+                        rowData.push(cell.textContent.trim());
+                    }
+                });
+                csv.push(rowData.join(','));
+            });
+            
+            const csvContent = "data:text/csv;charset=utf-8," + csv.join('\n');
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "orders_export.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showNotification("Данные успешно экспортированы");
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const historyHeader = document.querySelector('.neumorphic-card h3');
+            const exportButton = document.createElement('button');
+            exportButton.innerHTML = '<i class="fas fa-file-export"></i>';
+            exportButton.className = 'ml-2 p-2 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition-all';
+            exportButton.setAttribute('data-tooltip', 'Экспорт в CSV');
+            exportButton.classList.add('tooltip');
+            exportButton.onclick = exportTableToCSV;
+            historyHeader.appendChild(exportButton);
+        });
+    </script>
+</body>
+</html>
